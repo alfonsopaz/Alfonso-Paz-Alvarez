@@ -5,3 +5,7 @@ Bienvenido a tu calculadora de huella de carbono
     El cálculo tiene como fuente de cálculo la siguiente guía: DEFRA, 2021. Government conversion factors for company reporting. Greenhouse Gas Conversion Factor Repository 2019.
 
 Se ha desarrollado un código para el cálculo de resultados de la huella de carbono. 
+
+El usuario debe responder las preguntas que se hacen a través de la página 
+
+Y tendrán los resultados también mostrados en la pantalla. 
