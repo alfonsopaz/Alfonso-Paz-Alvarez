@@ -1,14 +1,14 @@
 class Organizacion {
-    constructor(id, nombre, tamaño, sector, temaMaterial, acciones) {
+    constructor(id, orgNombre, orgSize, sector, temaMaterial, acciones) {
         this.id = id; 
-        this.nombre = nombre.trim();
-        this.tamaño = tamaño;
+        this.orgNombre = orgNombre;
+        this.orgSize = orgSize;
         this.sector = sector; 
         this.temaMaterial = [];
         this.acciones = [];
     }
     toString() {
-        return this.nombre;
+        return this.orgNombre;
     }
 
     // Metodo para asignar a la organización los temas materiales
