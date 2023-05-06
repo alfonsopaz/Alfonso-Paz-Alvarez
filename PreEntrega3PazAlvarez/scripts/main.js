@@ -22,139 +22,171 @@ const accionesSugeridas = [
     new Acciones(9, "Colaborar con alguna iniciativa independiente por el medioambiente", "medio", undefined),
     new Acciones(10, "Definir objetivos relacionados con el consumo energético", "medio", undefined),
 ]; 
-
-// Cargamos la lista de sectores, de tamaños y de temas materiales en la interfaz con los arrays creados
-// Primero llamo al nodo id:tamaños del html 
-let orgSizeList = document.getElementById("orgSize");
-// Desarrollo el metodo for each que para cada instancia del array sector realiza una función 
-orgSizes.forEach((unOrgSize) => {
-    let item = document.createElement("option");
-    item.value = unOrgSize;
-    item.innerText = unOrgSize; 
-    orgSizeList.append(item);
-    });
-
-// Primero llamo al nodo id:sectores del html 
-let sectorList = document.getElementById("sectores");
-// Desarrollo el metodo for each que para cada instancia del array sector realiza una función 
-sectores.forEach((unSector) => {
-    let item = document.createElement("option");
-    item.value = unSector;
-    item.innerText = unSector; 
-    sectorList.append(item);
-    });
-
-// Primero llamo al nodo id:temasMateriales del html 
-let temasMaterialesList = document.getElementById("temasMateriales");
-// Desarrollo el metodo for each que para cada instancia del array sector realiza una función 
-temasMateriales.forEach((unTemaMaterial) => {
-    let item = document.createElement("option");
-    item.value = unTemaMaterial.nombre;
-    item.innerText = unTemaMaterial.nombre; 
-    temasMaterialesList.append(item);
-    });
-
-// Reconozco el boton y le asigno una constante para reconocerlo
-const btn = document.querySelector('#btnInscribir')
-
-// Libreria sweet alert --> Cuando haga click en el botón me sale un pop up diciéndome que ha avanzado
-btn.addEventListener('click', () => {
-    Swal.fire({
-        title: 'Genial!',
-        text: 'Tu organización ha quedado registrada!',
-        icon: 'success',
-        confirmButtonText: 'Cool',
-    })
-})
-
-// Organizaciones --> representa el conjunto de organizaciones
-let organizaciones = [];
-
-//recuperamos en DOM formulario
-const formulario = document.getElementById("formulario");
-
-//desarrollamos función escribir en tabla 
-function pintarTablaOrganizaciones(){
-let bodyTable = document.getElementById("organizacionesTableBody")
-bodyTable.innerHTML = ""; 
-organizacion.foreach((p) => {
-    let record = document.createElement("tr");
-    record.innerHTML = `<tr> 
-    <td scope="row">Número</td>
-    <td>Organización</td>
-    <td>Tamaño</td>
-    <td>Sector</td>
-    <td>Temas relevantes</td>
-    </tr>`;
-    bodyTable.append(record)
-});
-}
-
+//Defino variables globales 
+let respuestaId = 0
 let respuestaNombre
 let respuestaOrgSize
 let respuestaSector
 let respuestaTemaMaterialid
+let respuestaAccion
 let unaOrganizacion = []
+let organizaciones = [];
 
-//función de recuperación de los valores recibidos por el usuario 
-function inscribirOrganizacion () {
-respuestaNombre = document.getElementById("nombres").value;
-respuestaOrgSize = document.getElementById("orgSize").value;
-respuestaSector = document.getElementById("sectores").value;
-respuestaTemaMaterialid = document.getElementById("temasMateriales").value;
+// Cargamos la lista de sectores, de tamaños y de temas materiales en la interfaz con los arrays creados
+    // Primero llamo al nodo id:tamaños del html 
+    let orgSizeList = document.getElementById("orgSize");
+    // Desarrollo el metodo for each que para cada instancia del array sector realiza una función 
+    orgSizes.forEach((unOrgSize) => {
+        let item = document.createElement("option");
+        item.value = unOrgSize;
+        item.innerText = unOrgSize.toString(); 
+        orgSizeList.append(item);
+        });
 
-unaOrganizacion = new Organizacion ( 
-respuestaNombre,
-respuestaOrgSize, 
-respuestaSector, 
-respuestaTemaMaterialid,
-)
-organizaciones.push(unaOrganizacion);
-}
+    // Primero llamo al nodo id:sectores del html 
+    let sectorList = document.getElementById("sectores");
+    // Desarrollo el metodo for each que para cada instancia del array sector realiza una función 
+    sectores.forEach((unSector) => {
+        let item = document.createElement("option");
+        item.value = unSector.toString();
+        item.innerText = unSector; 
+        sectorList.append(item);
+        });
 
-function limpiarCampos() {
-    // Limpiar todos y cada uno de los inputs
-    document.getElementById("nombres").value = "";
-    document.getElementById("orgSize").value = "";
-    document.getElementById("sectores").value = "";
-    document.getElementById("temasMateriales").value = "";
-  }
-  
-  function validarFormulario() {
-    let errores = [];
-    respuestaNombre = document.getElementById("nombres").value;
-    respuestaOrgSize = document.getElementById("orgSize").value;
-    respuestaSector = document.getElementById("sectores").value;
-    respuestaTemaMaterialid = document.getElementById("temasMateriales").value;
-    return errores;
-  }
+    // Primero llamo al nodo id:temasMateriales del html 
+    let temasMaterialesList = document.getElementById("temasMateriales");
+    // Desarrollo el metodo for each que para cada instancia del array sector realiza una función 
+    temasMateriales.forEach((unTemaMaterial) => {
+        let item = document.createElement("option");
+        item.value = unTemaMaterial.nombre.toString();
+        item.innerText = unTemaMaterial.nombre; 
+        temasMaterialesList.append(item);
+        });
 
+// Recuperamos el boton como btn y le asigno una constante para reconocerlo
+    const btn = document.querySelector('#btnInscribir')
+// Recuperamos en DOM formulario
+    const formulario = document.getElementById("formulario");
+
+// Libreria sweet alert --> Cuando haga click en el botón me sale un pop up diciéndome que ha avanzado
+    btn.addEventListener('click', () => {
+        Swal.fire({
+            title: 'Genial!',
+            text: 'Tu organización ha quedado registrada!',
+            icon: 'success',
+            confirmButtonText: 'Cool',
+        })
+    })
+
+//Definimos función escribir en tabla 
+    function pintarTablaOrganizaciones(){
+        let bodyTable = document.getElementById("organizacionesTableBody")
+        bodyTable.innerHTML = ""; 
+        organizaciones.forEach((unaOrganizacion) => {
+            let record = document.createElement("tr");
+            record.innerHTML = `<tr> 
+            <td scope="row">${unaOrganizacion.id}</td>
+            <td>${unaOrganizacion.respuestaId}</td>
+            <td>${unaOrganizacion.respuestaNombre}</td>
+            <td>${unaOrganizacion.respuestaOrgSize}</td>
+            <td>${unaOrganizacion.respuestaSector}</td>
+            <td>${unaOrganizacion.respuestaTemaMaterialid}</td>
+            </tr>`;
+            bodyTable.append(record)
+        });
+    }
+
+//Definimos función para limpiar campos
+    function limpiarCampos() {
+        // Limpiar todos y cada uno de los inputs
+        document.getElementById("nombres").value = "";
+        document.getElementById("orgSize").value = "";
+        document.getElementById("sectores").value = "";
+        document.getElementById("temasMateriales").value = "";
+    }
+
+//Definimos función para validar que la función está bien 
+    function validarFormulario() {
+        let errores = [];
+        respuestaId = respuestaId
+        respuestaNombre = document.getElementById("nombres").value;
+        respuestaOrgSize = document.getElementById("orgSize").value;
+        respuestaSector = document.getElementById("sectores").value;
+        respuestaTemaMaterialid = document.getElementById("temasMateriales").value;
+        return errores;
+    }
+
+//Definimos función de recuperación de los valores recibidos por el usuario 
+    function inscribirOrganizacion () {
+        respuestaId = respuestaId + 1
+        respuestaNombre = document.getElementById("nombres").value;
+        respuestaOrgSize = document.getElementById("orgSize").value;
+        respuestaSector = document.getElementById("sectores").value;
+        respuestaTemaMaterialid = document.getElementById("temasMateriales").value;
+        
+    //Console.log para ver si se están quedando guardados
+        console.log(respuestaId);
+        console.log(respuestaNombre);
+        console.log(respuestaOrgSize);
+        console.log(respuestaSector);
+        console.log(respuestaTemaMaterialid);
+        
+    //Meto los valores en el objeto unaOrganización que viene de la clase Organizacion
+        unaOrganizacion = new Organizacion ( 
+        respuestaId,
+        respuestaNombre,
+        respuestaOrgSize, 
+        respuestaSector, 
+        respuestaTemaMaterialid,
+        respuestaAccion,
+        )
+        
+    //Añadimos la nueva organización a la lista de organizaciones 
+        organizaciones.push(unaOrganizacion);
+        
+        console.log(unaOrganizacion)
+
+        function pintarTablaOrganizaciones(){
+            let bodyTable = document.getElementById("organizacionesTableBody")
+            bodyTable.innerHTML = ""; 
+            organizaciones.forEach((unaOrganizacion) => {
+                let record = document.createElement("tr");
+                record.innerHTML = `<tr> 
+                <td scope="row">${unaOrganizacion.id}</td>
+                <td>${respuestaNombre}</td>
+                <td>${respuestaOrgSize}</td>
+                <td>${respuestaSector}</td>
+                <td>${respuestaTemaMaterialid}</td>
+                </tr>`;
+                bodyTable.append(record)
+            });
+        }
+
+
+    //Ponemos valor en la tabla
+        pintarTablaOrganizaciones(); 
+    }
+
+//Cuando se "submit" formulario => hay una función que pasan cosas...
 formulario.addEventListener("submit", (event) => {
     event.preventDefault();
     event.target.setAttribute("class", "needs-validation");
-    hideMessage();
+    
     let errores = validarFormulario();
+    
     if (errores.length > 0) {
-      showErrorMessage(errores);
-      event.target.classList.add("was-validated");
-      return false;
+    console.log("no funcionó")
+    console.log(errores);
+    event.target.classList.add("was-validated");
+    return false;
     }
   
     let resultado = inscribirOrganizacion();
     if (resultado) {
-      showSuccessMessage(["Funcionó"]);
-      limpiarCampos();
+    console.log("Funcionó");
+    limpiarCampos();
     }
-    return resultado;
-  });
-
-
-
-console.log(respuestaNombre)
-console.log(respuestaOrgSize)
-console.log(respuestaSector)
-console.log(respuestaTemaMaterialid)
-console.log(unaOrganizacion)
+});
 
 
 function hideMessage() {
@@ -162,10 +194,10 @@ function hideMessage() {
     messagesContainer.innerHTML = "";
   }
   
-  function showSuccessMessage(messages = []) {
+function showSuccessMessage(messages = []) {
     showMessage(messages, "success");
   }
   
-  function showErrorMessage(messages = []) {
+function showErrorMessage(messages = []) {
     showMessage(messages, "danger", "Encontramos errores :(");
   }
