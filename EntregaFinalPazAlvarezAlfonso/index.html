@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Sereco</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" 
+    crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body>  
+  <nav class="navbar navbar-expand-lg" style="background-color: #79b786;">
+    <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="./images/LogoSereco2.png" alt="Bootstrap" width="110" height="22">
+          </a>
+          
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="./index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./pages/guia.html">Cuestionario</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Funcionalidades
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="./pages/cuestionario.html">Cuestionario</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="./pages/fuentes.html">Fuentes</a></li>
+              </ul>
+          </ul>
+          
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+
+    </div>
+  </nav> 
+  <div class="bg-success p-2" style="--bs-bg-opacity: .5;">
+    <img src="./images//image140.jpg" class="img-fluid" alt="...">
+    <div class="intro p-2" >
+        <h1>Por favor, rellena los siguientes datos para comenzar</h1>
+    </div>
+  <div class="container">
+    <!-- Espacio para mensajes -->
+    <div id="messages"></div>
+
+    <!-- Formulario y boton de inscribir -->
+    <form id="formulario" class="needs-validation" novalidate>
+        
+      <div class="mb-3">
+        <label for="nombres" class="form-label">¿Cuál es el nombre de su organización?</label>
+        <input type="text" class="form-control" id="nombres" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="orgSize" class="form-label">¿Cuál es el tamaño de su organización?</label>
+        <select id="orgSize" class="form-select" required>
+          <option>Seleccione un tamaño</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="sectores" class="form-label">¿A qué sector pertenece la actividad de su organización?</label>
+        <select id="sectores" class="form-select" required>
+          <option>Seleccione un sector para inscribirte</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="temasMateriales" class="form-label">¿Qué temas son relevantes para su organización?</label>
+        <select id="temasMateriales" class="form-select" required>
+          <option>Seleccione un tema por favor</option>
+        </select>
+      </div>
+      
+      <button class="btn btn-primary" id="btnInscribir">Inscribir</button>
+    </form>
+
+    <h3 class="mt-3"></h3>
+
+    <!-- Tabla con resultados acumulados-->
+    <h3 class="mt-3">Orgnizaciones registradas</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Número</th>
+            <th scope="col">Organización</th>
+            <th scope="col">Tamaño</th>
+            <th scope="col">Sector</th>
+            <th scope="col">Temas Relevantes</th>
+          </tr>
+        </thead>
+        <tbody id="organizacionesTableBody">
+          <tr>
+            <th scope="row"></th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<!--//CDN que engancha con librería bootstrap-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" 
+crossorigin="anonymous"></script>
+
+<!--//CDN que engancha con librería sweet alert-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<!--//CDN que engancha con librería toastify-->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+<!--enganche con mi documento javascript donde tengo el código-->
+<script src="./classes/acciones.js"></script>
+<script src="./classes/organizacion.js"></script>
+<script src="./classes/temaMaterial.js"></script>
+<script src="./scripts/main.js"></script>
+
+</body>
+
+</html>
